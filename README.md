@@ -118,3 +118,8 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
 - CSRをやるときはいい感じのライブラリ用意してあるから使ってねとのこと
   - SWR　団体っぽい名前
 - 関係ないけどmarkdownのlintが優秀でありがたい
+
+## 9/30 動的ルート page 1 ~ 3
+
+- ブログの目次ができたのでリンク先となる子ページへ飛ぶ昨日をつくる
+- 
