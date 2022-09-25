@@ -39,6 +39,9 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
 - Reactは標準だとSSRじゃないからjsなくて動かないようになる
 - 一個前にやった（実際はもっと前にやるべきだった）基本のまとめと似たような話が続く
 
+## 9/25　事前レンダリングとデータ取得 page4
+- だいたい同じ話？開発環境(npm run dev)だとSSGでも毎回生成するのは覚えておいたほうがよさそう
+- SSGとSSRを好きなページで切り替えて使用できるので、場面によって使い分けをする 
 
 - pages
   - index.js　トップページ
