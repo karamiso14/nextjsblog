@@ -44,7 +44,13 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
 - SSGとSSRを好きなページで切り替えて使用できるので、場面によって使い分けをする 
 
 ## 9/26
-- 
+- ブログのエントリを外部から持ってくる
+- gray matterとかいうのを入れる。markdownのメタデータを見て管理できるらしい
+- libディレクトリを作って（特に名前が決まってるわけではないらしい）、gray-matterを使うメソッドを用意した
+- ファイルシステム読み取りやパス指定なんかもやっていて、基本的な動きっぽいので覚えておく
+- matterにかけると、メタデータの属性（dateとか)を簡単に取れるようになる　ぽい
+- ...matterResult.data　の頭の３つの.は何を意味しているのか、意味は無いのか……
+
 
 - pages
   - index.js　トップページ
@@ -58,3 +64,5 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
   - 画像とかおくところ
 - styles グローバル用のCSSをおくとこ？
   - global.css　グローバルcss本体
+  - utils.module.css　いろいろなCSSをまとめたやつ　ページをまたいでつかう系？
+- posts　外部ファイル読み込みの項目で使うやつ
