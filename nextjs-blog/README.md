@@ -43,6 +43,9 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
 - だいたい同じ話？開発環境(npm run dev)だとSSGでも毎回生成するのは覚えておいたほうがよさそう
 - SSGとSSRを好きなページで切り替えて使用できるので、場面によって使い分けをする 
 
+## 9/26
+- 
+
 - pages
   - index.js　トップページ
   - _app.js　グローバルCSSを当てるためのやつ？アプリ全体をコンポーネントとして見てる？
