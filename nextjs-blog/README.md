@@ -1,14 +1,18 @@
+# Head
+
 This is a starter template for [Learn Next.js](https://nextjs.org/learn).
 
 - ページ代わりになるpages配下のファイルがCSS適用されたコンポーネントを読み込んでいる
 pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
 
 ## 9/21
+
 - _app.jsってファイル名とかAppってクラス名は決まってる？あとglobal.cssって名前も
   - 決まっていそうな感じはする
 - git configの設定をlocalでやってたらしく、こっちのリポジトリ更新しても草が生えてなかった……
 
 ## 9/22
+
 - CSSももうちょい調べておいたほうが良いかも。0 1remとかようわからん
 - 一旦ファイル構成を整理
 - color:inheritって何
@@ -17,12 +21,15 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
 - javascript?の&&演算子って動き違う？ !home && ()って書いてるところが変
 
 ## 9/23
+
 ### 座学回 page10 CSS
+
 - SASSとかPortCSSとかようわからん
 - CSSはやっぱり一回ちゃんと見ておく
 - ドットインストールとかにあった気がするので見ておく　progateでも
 
 ### Next.jsのしくみ（飛ばしてたところ)
+
 - コンパイル、ミニファイ、バンドル、コード分割
 - サーバーサイドレンダリングがSSRのはず
 - 静的サイト生成はStatic Site Generation?あってた
@@ -35,15 +42,18 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
   - CDNと同じ意味だと思ってたら違うっぽい。CDNはエッジに含まれる。
 
 ### プリレンダリング
+
 - 動的なページじゃないなら、SSR(多分)をつかってjsを無効化しても動くという話
 - Reactは標準だとSSRじゃないからjsなくて動かないようになる
 - 一個前にやった（実際はもっと前にやるべきだった）基本のまとめと似たような話が続く
 
 ## 9/25　事前レンダリングとデータ取得 page4
+
 - だいたい同じ話？開発環境(npm run dev)だとSSGでも毎回生成するのは覚えておいたほうがよさそう
 - SSGとSSRを好きなページで切り替えて使用できるので、場面によって使い分けをする 
 
 ## 9/26
+
 - ブログのエントリを外部から持ってくる
 - gray matterとかいうのを入れる。markdownのメタデータを見て管理できるらしい
 - libディレクトリを作って（特に名前が決まってるわけではないらしい）、gray-matterを使うメソッドを用意した
@@ -51,6 +61,23 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
 - matterにかけると、メタデータの属性（dateとか)を簡単に取れるようになる　ぽい
 - ...matterResult.data　の頭の３つの.は何を意味しているのか、意味は無いのか……
 
+## 9/27　事前レンダリングとデータ取得 page7
+
+- 別ディレクトリの.mdファイルを読み込む
+  - 前回作ったgray-matterかけたデータをindex.jsで受け取る
+- importでlibに用意したメソッドを持ってくる
+- もってきたpropをmapでぶん回してid,date,titleを取ってきて表示
+  - ３つの要素が取れてくるのはgray-matterがいい感じにしてくれてるから？ここブラックボックスなのでよくわかってない
+- 
+
+### VSCの文字がにじむ件
+
+- ウィンドウを非アクティブにしたりすると、めちゃくちゃ文字がにじむ
+- ショートカットのリンク先にオプションで --disable-gpu とかを足してみたけどにじむ
+- 短時間作業だから気にならないけど、長時間やるとつらそう
+- そもそもフォントもなんかイマイチ　やけに細い　長時間やると目をやられそう
+
+## ファイルツリー覚書
 
 - pages
   - index.js　トップページ
