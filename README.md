@@ -1,6 +1,21 @@
 # next.js Tutorial Blog
 
-## memo
+## ファイルツリー覚書
+
+- pages
+  - index.js　トップページ
+  - _app.js　グローバルCSSを当てるためのやつ？アプリ全体をコンポーネントとして見てる？
+  - posts　ルーティング用
+    - first-post.js　チュートリアルで作成するページ
+- components
+  - layout.js　ただのコンポーネント。一番外側のタグで中身.containerで囲む
+  - layout.module.css　コンポーネント単位にCSS反映　スコープで名前が被らない
+- public
+  - 画像とかおくところ
+- styles グローバル用のCSSをおくとこ？
+  - global.css　グローバルcss本体
+  - utils.module.css　いろいろなCSSをまとめたやつ　ページをまたいでつかう系？
+- posts　外部ファイル読み込みの項目で使うやつ
 
 - npm run dev でlocalhost:3000にローカル起動
 - ついでにvcsでmarkdownが書けるように拡張を入れる
@@ -68,6 +83,12 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
 - matterにかけると、メタデータの属性（dateとか)を簡単に取れるようになる　ぽい
 - ...matterResult.data　の頭の３つの.は何を意味しているのか、意味は無いのか……
 
+### VSCの文字がにじむ件
+
+- ウィンドウを非アクティブにしたりすると、めちゃくちゃ文字がにじむ
+- ショートカットのリンク先にオプションで --disable-gpu を足したところよくなった
+- そもそもフォントもなんかイマイチ　やけに細い　長時間やると目をやられそう
+
 ## 9/27　事前レンダリングとデータ取得 page7
 
 - 別ディレクトリの.mdファイルを読み込む
@@ -88,25 +109,12 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
 - もうちょっとで最初のアプリチュートリアルが終わりそう。
 - 終わったらDocker立てるところをするか、CSSをやるか、なんか作るか……
 
-### VSCの文字がにじむ件
+## 9/29 事前レンダリングとデータ取得 page9
 
-- ウィンドウを非アクティブにしたりすると、めちゃくちゃ文字がにじむ
-- ショートカットのリンク先にオプションで --disable-gpu を足したところよくなった
-- そもそもフォントもなんかイマイチ　やけに細い　長時間やると目をやられそう
-
-## ファイルツリー覚書
-
-- pages
-  - index.js　トップページ
-  - _app.js　グローバルCSSを当てるためのやつ？アプリ全体をコンポーネントとして見てる？
-  - posts　ルーティング用
-    - first-post.js　チュートリアルで作成するページ
-- components
-  - layout.js　ただのコンポーネント。一番外側のタグで中身.containerで囲む
-  - layout.module.css　コンポーネント単位にCSS反映　スコープで名前が被らない
-- public
-  - 画像とかおくところ
-- styles グローバル用のCSSをおくとこ？
-  - global.css　グローバルcss本体
-  - utils.module.css　いろいろなCSSをまとめたやつ　ページをまたいでつかう系？
-- posts　外部ファイル読み込みの項目で使うやつ
+- 外部ファイル取ってくるのをSSRでやる方法
+- getStaticPropsをgetServerSidePropsに変えるだけでいいらしい。便利。
+- 今の仕組みだとブログ記事が増えれば増えるほどビルドが重くなっていくはず
+- とはいえmarkdownをいい感じに置いておく場所もないので今はSSGのまま
+- CSRをやるときはいい感じのライブラリ用意してあるから使ってねとのこと
+  - SWR　団体っぽい名前
+- 関係ないけどmarkdownのlintが優秀でありがたい
