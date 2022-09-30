@@ -126,4 +126,5 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
 - [id].jsみたいな名前をつけると、idの部分が動的パスになる。ここにファイル名からとったidをいれる
 - idが指定されたら逆に.mdを付与して、ファイルを引っ張ってきて中身を出す
 - ただのテキストとしてidとか日付を出したところまで。このあとはmarkdownをHTMLに直したり、リンクをつけたりするはず。
-- 0時すぎたので例の魔法をつかった
+- 0時すぎたので例の魔法をつかったと思ったが失敗した。
+  - git commit -am "page6 dynamic route" --date="Sep 30 23:59:59 2022 +0900"
