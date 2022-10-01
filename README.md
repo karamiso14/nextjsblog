@@ -128,3 +128,12 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
 - ただのテキストとしてidとか日付を出したところまで。このあとはmarkdownをHTMLに直したり、リンクをつけたりするはず。
 - 0時すぎたので例の魔法をつかったと思ったが失敗した。
   - git commit -am "page6 dynamic route" --date="Sep 30 23:59:59 2022 +0900"
+
+## 10/1 動的ルート page6
+
+- remarkってのをinstall markdownをhtmlにするために使う
+- importの時、名前を{}で囲むときとそうじゃないときの使い分けを忘れた あとで調べ直す
+- うごかねーと思ったらdate.js保存してなかった　phpstormは自動保存だからたまにハマる　要対策
+- titleタグってh1的なのじゃなくてタブのとこに出るやつって何回やっても忘れる
+- articleタグってデフォのやつ？後で調べる
+- dangerouslySetInnerHTML　名前がやばすぎる
