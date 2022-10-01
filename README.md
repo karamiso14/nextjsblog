@@ -133,9 +133,17 @@ pages/posts/first-post.js　→　components/layout.js　→　layout.module.css
 
 - remarkってのをinstall markdownをhtmlにするために使う
 - importの時、名前を{}で囲むときとそうじゃないときの使い分けを忘れた あとで調べ直す
+  - 割とみんなひっかかってた next.jsとかreactじゃなくjsそのものの話
+  - export default だと囲まない
+  - export だと囲む
+    - defaultだとreturnしてるもの１つだけ。defaultがないと、複数選べる。
+    - そもそもdefaultを使うべきではないみたいな風潮もあるらしい……がその前に使い分けを知りたい。
 - うごかねーと思ったらdate.js保存してなかった　phpstormは自動保存だからたまにハマる　要対策
+  - 1000ミリ秒保存にしてみた
 - titleタグってh1的なのじゃなくてタブのとこに出るやつって何回やっても忘れる
 - articleタグってデフォのやつ？後で調べる
+  - HTML5から入ってきたSEO系のやつだった　知らんタグ増えすぎなのでどっかで学ぶ必要はありそうだけど後回し系
 - dangerouslySetInnerHTML　名前がやばすぎる
+  - XSSの危険性があるらしい。スクリプトタグとかが流れてくるとそのまま使えちゃうらしい。
 - 0時過ぎたので魔法を使う
   - git commit -am "page7 dynamic route" --date="Oct 1 23:59:59 2022 +0900"
