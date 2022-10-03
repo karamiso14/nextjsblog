@@ -22,6 +22,7 @@ export default function Home({ allPostsData}){
 			</Head>
 			<section className={utilStyles.headingMd}>
 				<p>[ふわふわのぬいぐるみだよ]</p>
+				<p>[素敵な出会いの予感がするぜ]</p>
 				<p>
 					(This is a sample website - you'll be buidling a site like this on {' '}
 					<a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
