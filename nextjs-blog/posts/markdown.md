@@ -11,9 +11,9 @@ markdownの書き方とか、表示の確認用
 文末にスペースを2つつけると  
 同段落の改行になるけど見えないので扱いにくい
 
-HTMLの改行タグが使えるらしいので<br>
-ショートカットで出せるようにしてみた<br>
-lintに怒られるのなんとかしたい
+HTMLの改行タグはそのままだと使えなかった  
+shift+enterでスペース２個と改行いれるようにして対応  
+必要ならスペースを可視化する設定にすればなんとかなる
 
 [shift+enterで改行が入るきようにキーボードショートカットを変更](https://zenn.dev/anzu_natsukawa/articles/c345fd08a400d9)
 
@@ -87,11 +87,20 @@ echo("test");
 
 ## リンク
 
-[ローカルホストへのリンク](https://localhost:3000)
+[ローカルホストへのリンク](https://localhost:3000)  
+[production環境へのリンク](https://nextjsblog-karamiso14.vercel.app/)
 
 こんな感じで書く。
 
 `[リンク名称](https://localhost:3000)`
+
+こんな感じでも書けた  
+本文中に[URL][1]が突っ込まれると邪魔なときに良いかもしれない
+
+`[リンク名称][1]`  
+`[1]:https://nextjsblog-karamiso14.vercel.app/`
+
+[1]:https://nextjsblog-karamiso14.vercel.app/
 
 ---
 
