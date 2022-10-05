@@ -21,7 +21,7 @@ shift+enterでスペース２個と改行いれるようにして対応
 
 # 見出し1
 
-lintによると文頭推奨のため警告がつく
+setting.jsonにmarkdonwlintの項目追加、MD025をfalseで黙らせた
 
 ---
 
