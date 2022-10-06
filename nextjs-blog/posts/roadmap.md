@@ -10,6 +10,17 @@ date: '2022-10-05'
 - 基礎知識
   - 逆に何からやればいいのかわからん
   - 書籍から吸収がよさそう？
+  - Git
+    - [GithubSkills](https://skills.github.com/)
+    - github-pagesのチュートリアルをやってみる
+      - Jekyllというものを使ってるらしい
+        - 静的サイトジェネレーターらしい
+      - [成果物](https://karamiso14.github.io/githubpages/)
+        - あんまりいいチュートリアルじゃない印象……
+    - あとでGitの単独ページを作ってそこに飛ばすようにする
+    - webhook的なのとかは使えそう。rebaseまわりも使えそう。
+    - いつもの魔法
+      - git commit -am "github-pages tutorial" --date="Oct 06 23:59:59 2022 +0900"
 
 - プログラミング能力向上
   - デザインパターン
