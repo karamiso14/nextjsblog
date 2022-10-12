@@ -31,6 +31,7 @@ date: '2022-10-05'
   - 公式チュートリアルをやる[リンク](https://www.unrealengine.com/ja/learn)
   - [いい感じにまとめてくれてるサイト](https://ue5study.com/unrealengine-basic-operation/)
   - [別ページへ](unreal-engine.md)
+  - スペック足りなくてなんもで状態。一旦後回し。
 
 - フロントエンド
   - HTML/CSS/javascript
@@ -57,6 +58,7 @@ date: '2022-10-05'
 - Docker
   - なにか勉強しようとしたときにサクっと立てられると便利
   - k8s、docker swarmあたりも？ECSに繋がるやつをやる
+  - [別ページへのリンク](./docker.md)
 
 - AWS
   - チュートリアルやハンズオンが充実してる
