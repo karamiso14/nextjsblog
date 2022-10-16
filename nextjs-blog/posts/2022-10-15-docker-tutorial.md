@@ -71,7 +71,8 @@ EXPOSE 3000
 **FROM** はベースのイメージを指定していて、docker desktopに存在してなければ自動で取ってくる
 
 **WORKDIR** は操作対象の設定。初期位置はどこかわからないが/appに移動しているイメージ  
-起動時のカレントディレクトリもこれで変わるらしい
+起動時のカレントディレクトリもこれで変わるらしい  
+初期位置は/だが、ベースイメージの中で最後に読んだ場所になっているらしい。
 
 **RUN** はコマンドを実行している /appで実行したい内容があるため2回目が実行されている  
 ここの工程が増えるほどサイズが大きくなるらしく、&&でつないで1行にするのを推奨らしい
@@ -101,8 +102,36 @@ tはimageにタグをつけるオプション。タグといってもほぼ名�
 
 ### docker run
 
-``$  docker run -dp 3000:3000 getting-started ``
+``$  docker run -dp 3000:3000 getting-started``
 
 imageを作成したのであとは3000番のportで実行(next.jsのローカルと被ってるから変えてもいいかも)
 
-この章は一旦ここまで。
+## アプリケーションの更新
+
+next.jsのtodoアプリの、初期表示文言を更新する。  
+更新したら ``docker build -t getting-started .``でビルドし直す。
+
+その後``docker run -dp 3000:3000 getting-started``を実行すると、3000ポートはすでに使ってるのでエラーが出る。
+
+```sh
+docker: Error response from daemon: driver failed programming external connectivity on endpoint cranky_cori (b87a5ace3500bc77a1e848ec7551ef88390ca004a6a4345d8341b1d2da145f35): Bind for 0.0.0.0:3000 failed: port is already allocated.
+```
+
+まずはdockerコンテナを停止し、削除する必要がある。
+
+- CLIから削除
+  - docker psでコンテナIDを調べたら
+  - ``docker stop container-id``で停止
+  - ``docker rm container-id``で削除
+    - ``docker rm -rf container-id``なら一行で済む
+- ダッシュボード(GUI)から削除
+  - ゴミ箱ボタンを押すだけ
+
+再度docker runすると、文言が変わっていることがわかる
+
+注意点として、
+
+- データが消えている
+- 再構築を必要としないコードの編集方法など改良点がある
+
+らしいので、のちのステップで見ていくっぽい
