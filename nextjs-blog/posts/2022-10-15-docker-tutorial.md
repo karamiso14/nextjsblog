@@ -135,3 +135,31 @@ docker: Error response from daemon: driver failed programming external connectiv
 - 再構築を必要としないコードの編集方法など改良点がある
 
 らしいので、のちのステップで見ていくっぽい
+
+### アプリケーションの共有
+
+docker imageをgithubみたいにまとめて管理するdocker hubの話
+
+```sh
+You can push a new image to this repository using the CLI
+
+docker tag local-image:tagname new-repo:tagname
+docker push new-repo:tagname
+```
+
+pushを使うとローカルからhubへアップロードできる
+
+pushの前にimageにtagをつける  
+``docker tag getting-started karamso14/getting-started``
+
+それからpush  
+``docker push karamso14/getting-started``
+
+[Play with Docker](https://labs.play-with-docker.com/)というお試し環境が提供されているので、まだイメージが作られてない環境から実行してみる  
+4時間後にこのインスタンスは消滅する仕組み
+
+ADD NEW INSTANCEするとターミナルが出てくるので、
+``docker run -dp 3000:3000 karamso14/getting-started``  
+これを実行してOPEN PORTから3000を入力すると、さっきのTodoサービスが立ち上がる（文言修正したやつ）
+
+これでimageを他の人にdocker hub経由で渡せば同じ環境が立ち上がる状態になった。
