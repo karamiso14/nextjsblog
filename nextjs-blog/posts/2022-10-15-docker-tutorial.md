@@ -163,3 +163,28 @@ ADD NEW INSTANCEするとターミナルが出てくるので、
 これを実行してOPEN PORTから3000を入力すると、さっきのTodoサービスが立ち上がる（文言修正したやつ）
 
 これでimageを他の人にdocker hub経由で渡せば同じ環境が立ち上がる状態になった。
+
+### DBの保持
+
+いわゆるデータの永続化の話  
+コンテナの中に保存しても再起動すると消える(imageに存在しない)  
+そこをなんとかするのがvolumeで、2種類ある  
+一つは、名前付きボリューム(named volume)
+
+サンプルアプリのデータはSQLiteに保存されている  
+``/etc/todo/todo.db``  
+1ファイルで構成されているので、これをvolumeに置く
+
+まずvolumeの作成  
+``docker volume create todo-db``  
+一旦この時点で起動している、データが消えるコンテナは消しておく
+
+それから、-vオプションでvolumeを指定してdocker runする  
+``docker run -dp 3000:3000 -v todo-db:/etc/todos getting-started``  
+todoリストにデータを入れたあとコンテナを再起動しても、データが残る
+
+実際getting-staretedの/appにデータが作られるわけじゃなく、実態は別のところにある。  
+``docker volume inspect todo-db``こうするとjsonぽいのがでてくる  
+それによると、``"Mountpoint": "/var/lib/docker/volumes/todo-db/_data"``というところに実体があり、ホストからは権限で触れないよう隔離してある。
+
+次は、毎回image再構築をしないで済むようになるらしいバインドマウントについて。
