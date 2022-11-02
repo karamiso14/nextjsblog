@@ -21,6 +21,8 @@ date: '2022-10-05'
     - webhook的なのとかは使えそう。rebaseまわりも使えそう。
     - いつもの魔法
       - git commit -am "github-pages tutorial" --date="Oct 06 23:59:59 2022 +0900"
+    - `git rebase -i`
+      - コミットをまとめる
 
 - プログラミング能力向上
   - デザインパターン
