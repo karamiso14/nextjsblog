@@ -197,6 +197,150 @@ todoリストにデータを入れたあとコンテナを再起動しても、�
 きっちりパスを指定して使うのがバインドマウント。  
 ただしdriverが使えないなど名前付きボリュームに比べて若干機能は少ない？
 
-ハンズオンしたら書く
+名前付きボリュームはDBの代わりに使って、データの保存をした。  
+ここではバインドマウントをコードの即時反映のために使用する。
+
+-vの後の指定が違う
+
+- -v myvolume:/usr/local/data これは名前付きボリューム
+- -v /path/to/data:/usr/local/data これがバインドマウント
+
+```sh
+docker run -dp 3000:3000 \
+    -w /app -v "$(pwd):/app" \
+    node:12-alpine \
+    sh -c "yarn install && yarn run dev"
+```
+
+元々用意されていたyarn(パッケージリストみたいなもの？)でnodemonをインストールして動かすようになっている  
+package.jsonにdevという名前でnodemonを呼ぶようになっていた
+
+おそらく/app以下をnodemonが監視し、src/static/js/app.jsとかを編集すると自動でnodeを再起動しているっぽい？  
+自動保存と相性悪いかもしれない。
 
 次はdocker-composeの話
+
+## 複数コンテナのアプリ
+
+MySQLを追加するけど、同じコンテナに入れたりはしない。  
+１つ１つのコンテナが、１つのことをしっかりと実行すべき。らしい
+
+- DBとは別にAPIとフロントエンドをスケールする(?)
+- コンテナを分けると現在のバージョンと更新したバージョンを分離できる
+- 今はローカルのSQLiteをコンテナが使っているが、別のものを使いたくなるかも
+- コンテナは基本１プロセスなので、複数プロセスになるとプロセスマネージャとやらを使わないといけなくなり複雑化する
+
+解決方法は、コンテナ同士を同じネットワークに所属させること。
+
+``docker network create todo-app``  
+todo-appという名前のネットワークを作成
+
+```sh
+docker run -d \
+    --network todo-app --network-alias mysql \
+    -v todo-mysql-data:/var/lib/mysql \
+    -e MYSQL_ROOT_PASSWORD=secret \
+    -e MYSQL_DATABASE=todos \
+    mysql:5.7
+```
+-vのマウントで、コンテナ側が/var/lib/mysqlなのはどうやって調べるんだろうか？
+一応(mysqlのdocker hub)[https://hub.docker.com/_/mysql/]に書いてあるっぽいが、わかるかこれ……？
+
+todo-mysql-dataの名前付きボリュームはdockerが勝手に作ってくれるらしい。
+
+mysqlに接続しようという段階で急にnicolaka/netshootコンテナをいれることになった  
+ネットワークの問題に対するトラブルシュート用のツールがいっぱい入ってるらしい  
+[nicolaka/netshoot: a Docker + Kubernetes network trouble-shooting swiss-army container](https://github.com/nicolaka/netshoot)
+
+``docker run -it --network todo-app nicolaka/netshoot``  
+これでコンテナ実行して、mysqlのIPとかを調べに行く。
+
+``dig mysql``  
+docker実行時に、netowrk-aliasでmysqlってつけたのがここで効く。  
+
+```dig
+;; ANSWER SECTION:
+mysql.                  600     IN      A       172.18.0.2
+```
+
+Aレコードのことはあんまりわからんが名前解決していることがわかる。
+
+todoアプリ側に用意されている環境変数に諸々設定していく。  
+開発時はいいけど、本番環境では環境変数を通した設定はよくないらしい。  
+説明してるブログは意味わからんかった。
+
+todoアプリでtodoを作ると、mysqlにデータとして登録されているのがわかる。  
+特にコード変えてないのに、SQliteからmysqlになったのは環境変数の有無で動作が切り替わるようになっていたからか……？
+この辺は実際に動かす時ハマりそう。
+
+とりあえずこれでMySQLのコンテナと連携することができた。  
+次は、DockerComposeでアプリ立ち上げの手間とかを減らす。
+
+## DockerComposeを使う
+
+複数コンテナを管理する仕組み  
+利点は、どのアプリを使うのかなどをファイルに定義し、バージョン管理し、誰でも簡単に実行して環境を作れるようになること。
+
+基本的に、長ったらしいdocker runコマンドをdocker-compose.ymlにちょっと違う書き方で入れていく。長いので省略
+
+```yml
+version: "3.7"
+
+services:
+  app:
+    image: node:12-alpine
+    command: sh -c "yarn install && yarn run dev"
+    ports:
+      - 3000:3000
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: todos
+
+volumes:
+  todo-mysql-data:
+```
+
+docker runの時自動で作られていたmysql用の名前付きボリュームは、最後の行のところにあるようにdocker comopseでは明示的に作成しないといけない。
+
+あとはymlのあるところで``docker-compose up -d`` するだけ。  
+networkは自動で作ってくれるから、ymlには書いていない。
+
+``docker-compose logs -f``でそれぞれのコンテナのログが入り混じったやつが見られる  
+-fのあとにappとかつけると、そのコンテナの分だけ見られる。
+
+``docker-compose down``でコンテナを止められる。  
+volumeは消えないので、--volumesフラグも追加すること。  
+ダッシュボードからは指定できないのでvolumeは別で消す。
+
+次はDockerfileのベストプラクティスについて。  
+実は今まで使ってたものには問題があるらしい
+
+## イメージ構築のベストプラクティス
+
+``docker scan``コマンドを使うと、セキュリティ脆弱性とかをチェックしてくれる。  
+docker hubへのログインが必須。
+
+``docker image history image名``  
+これで階層化の順番が見られる。  
+--no-trunc オプションを追加すると、省略された行も出てくる
+
+Dockerfile内のcopyの順序を変えることで、無駄な依存関係の更新を避けられる。  
+先にpackage.jsonとかyarn.lockをコピーしておいてから、他のファイルをコピーする。  
+これで依存関係に変化があった時以外は、そっちのレイヤキャッシュ更新が走らなくなる。
+
+あとはnodejsならnode_modulesを.dockerignoreに追加するなどのテクがある。
+
+build時のstepで、using cacheが走ってるかどうかでキャッシュが効いているかどうかがわかる。
