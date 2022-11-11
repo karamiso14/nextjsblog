@@ -21,8 +21,10 @@ date: '2022-10-05'
     - webhook的なのとかは使えそう。rebaseまわりも使えそう。
     - いつもの魔法
       - git commit -am "github-pages tutorial" --date="Oct 06 23:59:59 2022 +0900"
-    - `git rebase -i`
-      - コミットをまとめる
+    - `git rebase -i commit_id`
+      - コミットをまとめる。push前専用。
+      - commit_idを入れた次～最新までが候補になる
+      - pick を squashに書き換えて保存するとまとまる
 
 - プログラミング能力向上
   - デザインパターン
