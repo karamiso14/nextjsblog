@@ -15,12 +15,12 @@ date: '2022-10-05'
     - github-pagesのチュートリアルをやってみる
       - Jekyllというものを使ってるらしい
         - 静的サイトジェネレーターらしい
-      - [成果物](https://karamiso14.github.io/githubpages/)
+      - [成果物](https://karamiso13.github.io/githubpages/)
         - あんまりいいチュートリアルじゃない印象……
     - あとでGitの単独ページを作ってそこに飛ばすようにする
     - webhook的なのとかは使えそう。rebaseまわりも使えそう。
     - いつもの魔法
-      - git commit -am "github-pages tutorial" --date="Oct 06 23:59:59 2022 +0900"
+      - git commit -am "github-pages tutorial" --date="Oct 05 23:59:59 2022 +0900"
     - `git rebase -i commit_id`
       - コミットをまとめる。push前専用。
       - commit_idを入れた次～最新までが候補になる
