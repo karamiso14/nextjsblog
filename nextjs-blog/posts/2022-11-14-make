@@ -1,0 +1,49 @@
+---
+title: "makeコマンド"
+date: "2022-11-14"
+---
+
+[- 自動化のためのGNU Make入門講座 - Makefileの基本：ルール](http://objectclub.jp/community/memorial/homepage3.nifty.com/masarl/article/gnu-make/rule.html)
+
+[npm ci、docker build、etcを自動化する古来の術式](https://zenn.dev/na0x2c6/articles/buff-your-development)
+
+cとかをコンパイルするときに使うイメージだけど、コマンドとかツールとして使われてることがちょくちょくあるっぽい というかあった
+
+makeからmigrationかけたりdb削除したり、docker操作コマンドをまとめておいたり  
+サクッと使えると便利な感じがしたので軽く学んでおくとよさそう  
+枯れてるので安定してるし
+
+```Makefile
+ターゲット: 必要条件
+	実行内容
+```
+実行内容の行のインデントはタブで、タブが先頭にあるとコマンドだと解釈する仕組みらしい  
+いにしえのじゅつしき
+
+## 依存関係
+
+``node_modules: package.json package-lock.json``
+
+この例だと、node_modulesが最新だと何もしない  
+package.jsonやlockファイルのほうが新しいと、node_modulesを再作成し始める感じ
+
+ファイルを対象に取らなければ毎回実行できるから、それをコマンドに使っている？  
+と思ったら説明あった。.PHONYという存在しない疑似ターゲットを指定することで毎回実行する形にするのが通例らしい
+
+npmはあんまり活用してないからフーンって感じ  
+Dockerの方が馴染みがあるかも
+
+``docker build --iidfile``  
+これでビルドするとハッシュを吐き出すらしく、それを使ってファイルの更新時間(mtime)をupdateして変更検知に使っているぽい。テクい。
+
+``$ echo docker-image >> .gitignore``  
+ignoreファイルに追加するのってこんな雑でよかったのか
+
+``x = value`` 利用される箇所で遅延展開になる
+``x := value`` その場で展開される
+
+基本的には遅延で良さそうだけど……使い所がピンとこない
+
+何かをしたあとに何かを実行する、という依存関係ならmakeで自動化できる可能性あり。
+
+--dry-runや-nでドライランができる 何故かたくさんあるけど２つもあればいいはず
