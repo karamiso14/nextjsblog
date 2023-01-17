@@ -5,7 +5,7 @@ import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 
 const name = 'nanachi';
-export const siteTitle = 'Next.js Sample website';
+export const siteTitle = '世界初のCO2ブログだよ';
 
 export default function Layout({ children, home }){
 	return(
